@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{652C2DEA-6559-435A-509E-1E6AF3972B08}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ColoredToggleUI/ColoredToggle.cs">
+    <Files>
+      <File FileName="Assets/Scripts/ColoredToggleUI/ColoredToggle.cs" Line="61" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
