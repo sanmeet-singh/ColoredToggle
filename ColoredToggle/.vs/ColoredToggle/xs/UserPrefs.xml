@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{652C2DEA-6559-435A-509E-1E6AF3972B08}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ColoredToggleUI/ColoredToggle.cs">
     <Files>
-      <File FileName="Assets/Scripts/ColoredToggleUI/ColoredToggle.cs" Line="113" Column="25" />
-      <File FileName="Assets/Scripts/TestToggle.cs" Line="8" Column="9" />
+      <File FileName="Assets/Scripts/ColoredToggleUI/ColoredToggleGroup.cs" Line="10" Column="36" />
+      <File FileName="Assets/Scripts/ColoredToggleUI/ColoredToggle.cs" Line="160" Column="37" />
+      <File FileName="Assets/Scripts/TestToggle.cs" Line="21" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

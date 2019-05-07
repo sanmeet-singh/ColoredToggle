@@ -38,24 +38,24 @@ namespace ColoredToggleUI
         public Graphic graphic;
 
         // group that this toggle can belong to
-        //        [SerializeField]
-        //        private ToggleGroup m_Group;
+        [SerializeField]
+        private ColoredToggleGroup m_Group;
 
-        //        public ToggleGroup group
-        //        {
-        //            get { return m_Group; }
-        //            set
-        //            {
-        //                m_Group = value;
-        //#if UNITY_EDITOR
-        //                if (Application.isPlaying)
-        //#endif
-        //        {
-        //            SetToggleGroup(m_Group, true);
-        //            PlayEffect(true);
-        //        }
-        //    }
-        //}
+        public ColoredToggleGroup group
+        {
+            get { return m_Group; }
+            set
+            {
+                m_Group = value;
+#if UNITY_EDITOR
+                if (Application.isPlaying)
+#endif
+                {
+                    SetToggleGroup(m_Group, true);
+                    //PlayEffect(true);
+                }
+            }
+        }
 
         /// <summary>
         /// Allow for delegate-based subscriptions for faster events than 'eventReceiver', and allowing for multiple receivers.
@@ -95,14 +95,14 @@ namespace ColoredToggleUI
 
             // if we are in a group and set to true, do group logic
             m_IsOn = value;
-            //if (m_Group != null && IsActive())
-            //{
-            //    if (m_IsOn || (!m_Group.AnyTogglesOn() && !m_Group.allowSwitchOff))
-            //    {
-            //        m_IsOn = true;
-            //        m_Group.NotifyToggleOn(this);
-            //    }
-            //}
+            if (m_Group != null && IsActive())
+            {
+                if (m_IsOn || (!m_Group.AnyTogglesOn() && !m_Group.allowSwitchOff))
+                {
+                    m_IsOn = true;
+                    m_Group.NotifyToggleOn(this);
+                }
+            }
 
             // Always send event when toggle is clicked, even if value didn't change
             // due to already active toggle in a toggle group being clicked.
@@ -150,6 +150,31 @@ namespace ColoredToggleUI
 #endif
         }
 
+        private void SetToggleGroup(ColoredToggleGroup newGroup, bool setMemberValue)
+        {
+            ColoredToggleGroup oldGroup = m_Group;
+
+            // Sometimes IsActive returns false in OnDisable so don't check for it.
+            // Rather remove the toggle too oftem than too little.
+            if (m_Group != null)
+                m_Group.UnregisterToggle(this);
+
+            // At runtime the group variable should be set but not when calling this method from OnEnable or OnDisable.
+            // That's why we use the setMemberValue parameter.
+            if (setMemberValue)
+                m_Group = newGroup;
+
+            // Only register to the new group if this Toggle is active.
+            if (m_Group != null && IsActive())
+                m_Group.RegisterToggle(this);
+
+            // If we are in a new group, and this toggle is on, notify group.
+            // Note: Don't refer to m_Group here as it's not guaranteed to have been set.
+            if (newGroup != null && newGroup != oldGroup && isOn && IsActive())
+                m_Group.NotifyToggleOn(this);
+        }
+
+
 
 #if UNITY_EDITOR
         protected override void OnValidate()
@@ -176,9 +201,20 @@ namespace ColoredToggleUI
             //throw new NotImplementedException();
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            SetToggleGroup(m_Group, false);
+        }
+
+        protected override void OnDisable()
+        {
+            SetToggleGroup(null, false);
+            base.OnDisable();
+        }
+
         private void UpdateColor()
         {
-            Debug.Log("uc : " + m_IsOn);
             this.transform.GetChild(0).GetComponent<Text>().color = m_IsOn ? onColor : offColor;
         }
     }
