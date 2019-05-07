@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ColoredToggleUI\ColoredToggle.cs" />
+    <Compile Include="Assets\Scripts\TestToggle.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/apple/Desktop/unityProjects/ColoredToggle/ColoredToggle/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
